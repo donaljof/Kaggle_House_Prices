@@ -53,8 +53,16 @@ sale_plot(train, "Neighborhood")
 
 as.numeric(train$Neighborhood)
 
+correlations <- data.frame(feature = character(), SalePrice_cor = numeric())
 
 for(feature in colnames(train)){
-  print (cor(train["SalePrice"], as.numeric(train[feature])))
+  fcor <- data.frame(feature = feature, 
+                     SalePrice_cor = cor(train["SalePrice"], 
+                                         as.numeric(train[,feature]))[1])
+  print(fcor)
+  rbind(correlations, fcor)
+  #correlations["feature"] <- feature
+  #correlations["SalePrice_cor"] <- cor(train["SalePrice"], as.numeric(train[,feature]))[1]
 }
-                      
+
+
